@@ -15,7 +15,9 @@ namespace EventBooking.Persistence.Repositories
 
         public async Task<bool> DeleteAsync(string name, CancellationToken ct)
         {
-            var eventEntity = await GetAsync(name, ct);
+            var eventEntity = await _dbContext.Events
+                .Include(x => x.EmailToEvents)
+                .SingleOrDefaultAsync(x => x.Name == name, ct);
             
             if (eventEntity == null)
             {
@@ -23,11 +25,13 @@ namespace EventBooking.Persistence.Repositories
                 return false;
             }
 
+            var toBeDeleted = eventEntity.EmailToEvents.Count() + 1;
+
             _dbContext.Events.Remove(eventEntity!);
 
             var deleted = await _dbContext.SaveChangesAsync(ct);
 
-            return deleted == 1;
+            return deleted == toBeDeleted;
         }
 
         public async Task<IEnumerable<EventEntity>> GetAllAsync(CancellationToken ct)
@@ -49,6 +53,24 @@ namespace EventBooking.Persistence.Repositories
         {
             await _dbContext.AddAsync(entity, ct);
             var added = await _dbContext.SaveChangesAsync(ct);
+            return added == 1;
+        }
+
+        public async Task<bool> RegisterEmail(EmailToEventEntity entity, CancellationToken ct)
+        {
+            //await _dbContext.EmailToEvents.AddAsync(entity, ct);
+
+            var eventEntity = await GetAsync(entity.EventName!, ct);
+
+            if (eventEntity is null)
+            {
+                return false;
+            }
+
+            eventEntity!.EmailToEvents.Add(entity);
+
+            var added = await _dbContext.SaveChangesAsync(ct);
+
             return added == 1;
         }
 

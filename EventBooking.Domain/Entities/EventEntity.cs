@@ -16,5 +16,7 @@ namespace EventBooking.Domain.Entities
         public int? NoOfSeats { get; set; }
 
         public string? Country { get; set; }
+
+        public ICollection<EmailToEventEntity> EmailToEvents { get; set; } = [];
     }
 }

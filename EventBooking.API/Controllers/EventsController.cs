@@ -1,4 +1,6 @@
 ﻿using EventBooking.Application.UseCase.Events.Commands.CreateEvent;
+using EventBooking.Application.UseCase.Events.Commands.DeleteEvent;
+using EventBooking.Application.UseCase.Events.Commands.RegisterForEvent;
 using EventBooking.Application.UseCase.Events.Commands.UpdateEvent;
 using EventBooking.Application.UseCase.Events.Queries.GetAllEvents;
 using EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent;
@@ -60,6 +62,19 @@ namespace EventBookingAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> DeleteAsync([FromQuery] DeleteEventCommand deleteEventCommand, CancellationToken ct)
+        {
+            var result = await Mediator.Send(deleteEventCommand, ct);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         /// <summary>
         /// This endpoint fetches all Event Booking items
         /// </summary>
@@ -107,6 +122,25 @@ namespace EventBookingAPI.Controllers
         public async Task<IActionResult> GetByName([FromQuery] GetByEventNameQuery getByEventNameQuery, CancellationToken ct)
         {
             var result = await Mediator.Send(getByEventNameQuery, ct);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        /// <summary>
+        /// This endpoint allows to register for an event using email address
+        /// </summary>
+        /// <param name="registerForEventCommand"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromQuery] RegisterForEventCommand registerForEventCommand, CancellationToken ct)
+        {
+            var result = await Mediator.Send(registerForEventCommand, ct);
 
             if (result.Success)
             {
