@@ -1,8 +1,12 @@
-﻿namespace EventBooking.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace EventBooking.Domain.Entities
 {
     public class EventEntity
     {
-        public long Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string? Name { get; set; }
 
         public DateTime? StartDate { get; set; }

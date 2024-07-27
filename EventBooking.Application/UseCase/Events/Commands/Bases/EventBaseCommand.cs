@@ -1,6 +1,6 @@
-﻿namespace EventBooking.API.Parameters
+﻿namespace EventBooking.Application.UseCase.Events.Commands.Bases
 {
-    public class CreateEventParams
+    public class EventBaseCommand
     {
         /// <summary>
         /// Event's name - single line with max 20 letters 
