@@ -4,6 +4,6 @@ namespace EventBooking.Application.Interface.Persistence
 {
     public interface IEventRepository : IGenericRepository<EventEntity>
     {
-        Task<IEnumerable<EventEntity>> GetByCountryId(long countryId);
+        Task<IEnumerable<EventEntity>> GetByCountry(string country);
     }
 }

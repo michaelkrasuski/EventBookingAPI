@@ -40,9 +40,9 @@ namespace EventBooking.Persistence.Repositories
             return await _dbContext.Events.FindAsync(id);
         }
 
-        public async Task<IEnumerable<EventEntity>> GetByCountryId(long countryId)
+        public async Task<IEnumerable<EventEntity>> GetByCountry(string country)
         {
-            return await _dbContext.Events.Where(x => x.CountryId == countryId).ToListAsync();
+            return await _dbContext.Events.Where(x => x.Country!.Equals(country.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
         }
 
         public async Task<bool> InsertAsync(EventEntity entity)
