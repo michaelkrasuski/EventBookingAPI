@@ -1,6 +1,5 @@
-﻿using EventBooking.API.Models;
+﻿using EventBooking.Application.Extensions;
 using EventBooking.Application.Interface.Persistence;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -10,12 +9,12 @@ namespace EventBooking.API.Middleware
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly AppSettings _appSettings;
+        private readonly IConfiguration _configuration;
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
+        public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
-            _appSettings = appSettings.Value;
+            _configuration = configuration;
         }
 
         public async Task Invoke(HttpContext context, IUnitOfWork unitOfWork)
@@ -35,7 +34,8 @@ namespace EventBooking.API.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appSettings.Secret ?? string.Empty);
+                var secret = _configuration.GetSecret();
+                var key = Encoding.ASCII.GetBytes(secret ?? string.Empty);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
