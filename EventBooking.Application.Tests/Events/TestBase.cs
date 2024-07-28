@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EventBooking.Application.Interface.Persistence;
-using EventBooking.Domain.Entities;
 using Moq;
 
 namespace EventBooking.Application.Tests.Events
@@ -13,9 +12,9 @@ namespace EventBooking.Application.Tests.Events
 
         public TestBase()
         {
-            UnitOfWorkMock = new Mock<IUnitOfWork>();
-            MapperMock = new Mock<IMapper>();
-            EventRepositoryMock = new Mock<IEventRepository>();
+            UnitOfWorkMock = new ();
+            MapperMock = new ();
+            EventRepositoryMock = new ();
         }
 
         protected void InitBase(Mock<IEventRepository> eventRepoMock)

@@ -9,6 +9,8 @@ namespace EventBooking.Persistence
 
         public DbSet<EmailToEventEntity> EmailToEvents { get; set; }
 
+        public DbSet<UserEntity> Users { get; set; }
+
         public EventBookingDbContext(DbContextOptions<EventBookingDbContext> options) : base(options) { }
     }
 }

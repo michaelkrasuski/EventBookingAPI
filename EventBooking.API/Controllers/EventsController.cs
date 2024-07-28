@@ -1,4 +1,5 @@
-﻿using EventBooking.Application.UseCase.Events.Commands.CreateEvent;
+﻿using EventBooking.API.Attributes.EventBookingAPI.API.Attributes;
+using EventBooking.Application.UseCase.Events.Commands.CreateEvent;
 using EventBooking.Application.UseCase.Events.Commands.DeleteEvent;
 using EventBooking.Application.UseCase.Events.Commands.RegisterForEvent;
 using EventBooking.Application.UseCase.Events.Commands.UpdateEvent;
@@ -14,7 +15,7 @@ namespace EventBookingAPI.Controllers
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]    
     public class EventsController : ControllerBase
     {
         private readonly IMediator Mediator;
@@ -32,6 +33,7 @@ namespace EventBookingAPI.Controllers
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         [HttpPost("Create")]
+        [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] CreateEventCommand createEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(createEventCommand, ct);
@@ -51,6 +53,7 @@ namespace EventBookingAPI.Controllers
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPut("Update")]
+        [Authorize]
         public async Task<IActionResult> UpdateAsync([FromBody] UpdateEventCommand updateEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(updateEventCommand, ct);
@@ -70,6 +73,7 @@ namespace EventBookingAPI.Controllers
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpDelete("Delete")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync([FromQuery] DeleteEventCommand deleteEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(deleteEventCommand, ct);
@@ -145,6 +149,7 @@ namespace EventBookingAPI.Controllers
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpPost("Register")]
+        [Authorize]
         public async Task<IActionResult> Register([FromQuery] RegisterForEventCommand registerForEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(registerForEventCommand, ct);

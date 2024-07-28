@@ -6,9 +6,12 @@ namespace EventBooking.Persistence.Repositories
     {
         public IEventRepository Events { get; }
 
-        public UnitOfWork(IEventRepository events)
+        public IUserRepository Users { get; }
+
+        public UnitOfWork(IEventRepository events, IUserRepository users)
         {
             Events = events ?? throw new ArgumentNullException(nameof(events));
+            Users = users;
         }
 
         public void Dispose()

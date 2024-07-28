@@ -1,10 +1,15 @@
-﻿namespace EventBookingAPI.Middleware
+﻿using EventBooking.API.Middleware;
+
+namespace EventBookingAPI.Middleware
 {
     public static class MiddlewareExtension
     {
         public static IApplicationBuilder AddMiddleware(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<ValidationMiddleware>();
+            return app
+                .UseMiddleware<ValidationMiddleware>()
+                .UseMiddleware<JwtMiddleware>();
+
         }
     }
 }
