@@ -1,8 +1,6 @@
-﻿using EventBooking.API.Models;
-using EventBooking.Application.UseCase.Events.Commands.AuthenticateEvent;
+﻿using EventBooking.Application.UseCase.Events.Commands.AuthenticateEvent;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace EventBooking.API.Controllers
 {
@@ -14,10 +12,8 @@ namespace EventBooking.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator Mediator;
-        private readonly AppSettings AppSettings;
-        public UsersController(IOptions<AppSettings> appSettings, IMediator mediator)
+        public UsersController(IMediator mediator)
         {
-            AppSettings = appSettings.Value;
             Mediator = mediator;
         }
 

@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.AspNetCore.Mvc;
+    using EventBooking.Domain.Entities;
 
     namespace EventBookingAPI.API.Attributes
     {
@@ -10,7 +11,7 @@
         {
             public void OnAuthorization(AuthorizationFilterContext context)
             {
-                var user = context.HttpContext.Items["User"]; //(User?)
+                var user = (UserEntity?) context.HttpContext.Items["User"];
                 if (user is null)
                 {
                     context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };

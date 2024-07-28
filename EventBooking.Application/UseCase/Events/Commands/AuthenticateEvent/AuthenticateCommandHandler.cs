@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using EventBooking.Application.Dto;
+using EventBooking.Application.Extensions;
 using EventBooking.Application.Interface.Persistence;
 using EventBooking.Application.UseCase.Bases;
 using EventBooking.Domain.Entities;
@@ -57,16 +58,7 @@ namespace EventBooking.Application.UseCase.Events.Commands.AuthenticateEvent
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = await Task.Run(() =>
             {
-
-                var keyVaultUri = _configuration.GetSection("KeyVault:KeyVaultURL").Value;
-                var clientId = _configuration.GetSection("KeyVault:ClientId").Value;
-                var clientSecret = _configuration.GetSection("KeyVault:ClientSecret").Value;
-                var directoryId = _configuration.GetSection("KeyVault:DirectoryId").Value;
-
-                var credential = new ClientSecretCredential(directoryId, clientId, clientSecret);
-                var secretClient = new SecretClient(new Uri(keyVaultUri!), credential);
-
-                var secret = secretClient.GetSecret("event-booking-api-secret")?.Value?.Value;
+                var secret = _configuration.GetSecret();
 
                 if (secret is null)
                 {
