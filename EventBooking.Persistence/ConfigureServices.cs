@@ -12,6 +12,7 @@ namespace EventBooking.Persistence
             services.AddDbContext<EventBookingDbContext>(options => options.UseInMemoryDatabase("EventBookingDb"));
 
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

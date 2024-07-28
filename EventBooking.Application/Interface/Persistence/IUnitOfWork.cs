@@ -3,5 +3,7 @@
     public interface IUnitOfWork : IDisposable
     {
         IEventRepository Events { get; }
+
+        IUserRepository Users { get; }
     }
 }
