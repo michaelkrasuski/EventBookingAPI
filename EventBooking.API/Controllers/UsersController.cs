@@ -24,7 +24,7 @@ namespace EventBooking.API.Controllers
         [HttpPost("Authenticate")]
         public async Task<IActionResult> AuthenticateAsync()
         {
-            var result = await Mediator.Send(new AuthenticateCommand { Secret = AppSettings.Secret });
+            var result = await Mediator.Send(new AuthenticateCommand());
             if (result is not null)
             {
                 return Ok(result);

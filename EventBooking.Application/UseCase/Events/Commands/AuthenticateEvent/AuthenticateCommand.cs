@@ -6,6 +6,5 @@ namespace EventBooking.Application.UseCase.Events.Commands.AuthenticateEvent
 {
     public class AuthenticateCommand : IRequest<BaseResponse<AuthenticateResponseDto>>
     {
-        public string? Secret;
     }
 }
