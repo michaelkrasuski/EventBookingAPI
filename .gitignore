@@ -394,3 +394,4 @@ FodyWeavers.xsd
 /EventBooking.Domain/obj/EventBooking.Domain.csproj.nuget.g.props
 /EventBooking.Domain/obj/EventBooking.Domain.csproj.nuget.g.targets
 /EventBooking.Application/obj/EventBooking.Application.csproj.nuget.g.props
+/EventBooking.Persistence/obj/Debug/net8.0/EventBooking.Persistence.csproj.CoreCompileInputs.cache

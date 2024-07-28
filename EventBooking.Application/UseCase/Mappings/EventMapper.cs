@@ -20,7 +20,7 @@ namespace EventBooking.Application.UseCase.Mappings
             CreateMap<EventEntity, UpdateEventCommand>().ReverseMap();
             CreateMap<EventEntity, DeleteEventCommand>().ReverseMap();
             CreateMap<EventEntity, GetAllEventsQuery>().ReverseMap();
-            CreateMap<EventEntity, GetByEventCountryQuery>().ReverseMap();
+            CreateMap<EventEntity, GetByEventsCountryQuery>().ReverseMap();
             CreateMap<EventEntity, GetByEventNameQuery>().ReverseMap();
         }
     }

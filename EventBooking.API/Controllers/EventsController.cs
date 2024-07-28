@@ -12,6 +12,7 @@ namespace EventBookingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class EventsController : ControllerBase
@@ -25,9 +26,9 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// This endpoint creates new Event Booking item
+        /// Creates new Event Booking item
         /// </summary>
-        /// <param name="createEventCommand">Event command</param>
+        /// <param name="createEventCommand"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         [HttpPost("Create")]
@@ -62,6 +63,12 @@ namespace EventBookingAPI.Controllers
             return BadRequest(result);
         }
 
+        /// <summary>
+        /// Removes Event with all registered emails
+        /// </summary>
+        /// <param name="deleteEventCommand"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteAsync([FromQuery] DeleteEventCommand deleteEventCommand, CancellationToken ct)
         {
@@ -76,7 +83,7 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// This endpoint fetches all Event Booking items
+        /// Fetches all Event Booking items
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -94,13 +101,13 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// This endpoint fetches Event Booking items by Country
+        /// Fetches Event Booking items by Country
         /// </summary>
         /// <param name="getByEventCountryQuery"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         [HttpGet("GetByCountry")]
-        public async Task<IActionResult> GetByCountry([FromQuery] GetByEventCountryQuery getByEventCountryQuery, CancellationToken ct)
+        public async Task<IActionResult> GetByCountry([FromQuery] GetByEventsCountryQuery getByEventCountryQuery, CancellationToken ct)
         {
             var result = await Mediator.Send(getByEventCountryQuery, ct);
 
@@ -113,7 +120,7 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// This endpoint fetches Event Booking item by name
+        /// Fetches Event Booking item by name
         /// </summary>
         /// <param name="getByEventNameQuery"></param>
         /// <param name="ct"></param>
@@ -132,7 +139,7 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// This endpoint allows to register for an event using email address
+        /// Registers for an event by name using email address
         /// </summary>
         /// <param name="registerForEventCommand"></param>
         /// <param name="ct"></param>

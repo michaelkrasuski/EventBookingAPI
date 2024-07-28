@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent
 {
-    public class GetByEventCountryQueryHandler : IRequestHandler<GetByEventCountryQuery, BaseResponse<IEnumerable<EventBasicDto>>>
+    public class GetByEventCountryQueryHandler : IRequestHandler<GetByEventsCountryQuery, BaseResponse<IEnumerable<EventBasicDto>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ namespace EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<BaseResponse<IEnumerable<EventBasicDto>>> Handle(GetByEventCountryQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<IEnumerable<EventBasicDto>>> Handle(GetByEventsCountryQuery request, CancellationToken cancellationToken)
         {
             var response = new BaseResponse<IEnumerable<EventBasicDto>>();
 
