@@ -7,8 +7,7 @@ namespace EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent
         public GetByEventCountryValidator()
         {
             RuleFor(x => x.Country)
-                .NotEmpty()
-                .NotNull();
+                .NotEmpty();
         }
     }
 }

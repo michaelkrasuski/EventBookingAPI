@@ -6,9 +6,7 @@ namespace EventBooking.Application.UseCase.Events.Commands.DeleteEvent
     {
         public DeleteEventValidator()
         {
-            RuleFor(x => x.Name)
-                .NotEmpty()
-                .NotNull();
+            RuleFor(x => x.Name).NotEmpty();
         }
     }
 }

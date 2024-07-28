@@ -7,8 +7,7 @@ namespace EventBooking.Application.UseCase.Events.Queries.GetByIdEvent
         public GetByEventNameValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty()
-                .NotNull();
+                .NotEmpty();
         }
     }
 }

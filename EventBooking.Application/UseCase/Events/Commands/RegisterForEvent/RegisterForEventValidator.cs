@@ -7,13 +7,11 @@ namespace EventBooking.Application.UseCase.Events.Commands.RegisterForEvent
         public RegisterForEventValidator()
         {
             RuleFor(x => x.Email)
-                .NotEmpty()
                 .NotNull()
                 .EmailAddress();
 
             RuleFor(x => x.EventName)
-                .NotEmpty()
-                .NotNull();
+                .NotEmpty();
         }
     }
 }
