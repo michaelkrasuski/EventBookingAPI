@@ -3,11 +3,11 @@
     public interface IGenericRepository<T> where T : class
     {
         /* Commands */
-        Task<bool> InsertAsync(T entity);
-        Task<bool> UpdateAsync(T entity);
-        Task<bool> DeleteAsync(long id);
+        Task<bool> InsertAsync(T entity, CancellationToken ct);
+        Task<bool> UpdateAsync(T entity, CancellationToken ct);
+        Task<bool> DeleteAsync(string key, CancellationToken ct);
         /* Queries */
-        Task<T?> GetAsync(long id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<T?> GetAsync(string key, CancellationToken ct);
+        Task<IEnumerable<T>> GetAllAsync(CancellationToken ct);
     }
 }

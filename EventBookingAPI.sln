@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.API", ".\EventBooking.API\EventBooking.API.csproj", "{3CB97F67-3ED9-4F99-B433-53684316F4D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.API", "EventBooking.API\EventBooking.API.csproj", "{3CB97F67-3ED9-4F99-B433-53684316F4D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Application", ".\EventBooking.Application\EventBooking.Application.csproj", "{AE0BAEDA-8EFB-432D-91EC-E845EEFFEAD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Application", "EventBooking.Application\EventBooking.Application.csproj", "{AE0BAEDA-8EFB-432D-91EC-E845EEFFEAD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Infrastructure", ".\EventBooking.Infrastructure\EventBooking.Infrastructure.csproj", "{1309B74D-B4E4-4517-B566-903A4ADD7A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Infrastructure", "EventBooking.Infrastructure\EventBooking.Infrastructure.csproj", "{1309B74D-B4E4-4517-B566-903A4ADD7A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Persistence", ".\EventBooking.Persistence\EventBooking.Persistence.csproj", "{07E89B99-60F3-42FA-9305-BEA81B619556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Persistence", "EventBooking.Persistence\EventBooking.Persistence.csproj", "{07E89B99-60F3-42FA-9305-BEA81B619556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Domain", ".\EventBooking.Domain\EventBooking.Domain.csproj", "{3705872C-903A-4FDE-988D-FCD13FDF3786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Domain", "EventBooking.Domain\EventBooking.Domain.csproj", "{3705872C-903A-4FDE-988D-FCD13FDF3786}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Application.Tests", "EventBooking.Application.Tests\EventBooking.Application.Tests.csproj", "{4A7F5AE4-65D1-4E97-963F-D52CB65CB7F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.API.Tests", "EventBooking.API.Tests\EventBooking.API.Tests.csproj", "{511F4517-08CF-4CFB-AABC-2989BC7164F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{3705872C-903A-4FDE-988D-FCD13FDF3786}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3705872C-903A-4FDE-988D-FCD13FDF3786}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3705872C-903A-4FDE-988D-FCD13FDF3786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7F5AE4-65D1-4E97-963F-D52CB65CB7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7F5AE4-65D1-4E97-963F-D52CB65CB7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7F5AE4-65D1-4E97-963F-D52CB65CB7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7F5AE4-65D1-4E97-963F-D52CB65CB7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{511F4517-08CF-4CFB-AABC-2989BC7164F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{511F4517-08CF-4CFB-AABC-2989BC7164F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{511F4517-08CF-4CFB-AABC-2989BC7164F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511F4517-08CF-4CFB-AABC-2989BC7164F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

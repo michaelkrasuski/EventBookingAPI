@@ -9,7 +9,7 @@ namespace EventBooking.Application.UseCase.Exceptions
         public ValidationExceptionCustom()
             : base("One or more validation failures have occured.")
         {
-            Errors = new List<BaseError>();
+            Errors = [];
         }
 
         public ValidationExceptionCustom(IEnumerable<BaseError> errors)
