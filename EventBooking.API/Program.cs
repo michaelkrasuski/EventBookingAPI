@@ -1,4 +1,3 @@
-using EventBooking.API.Models;
 using EventBooking.Application;
 using EventBooking.Persistence;
 using EventBookingAPI.Middleware;
@@ -47,8 +46,6 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence();
-
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
 
