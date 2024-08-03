@@ -17,7 +17,11 @@ namespace EventBooking.API.Controllers
             Mediator = mediator;
         }
 
-        [HttpPost("Authenticate")]
+        /// <summary>
+        /// Allows to acquire Bearer Token
+        /// </summary>
+        /// <returns>Bearer Token</returns>
+        [HttpPost]
         public async Task<IActionResult> AuthenticateAsync()
         {
             var result = await Mediator.Send(new AuthenticateCommand());

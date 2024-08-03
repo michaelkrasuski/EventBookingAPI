@@ -1,13 +1,10 @@
 ﻿using EventBooking.Application.Dto;
-using EventBooking.Application.UseCase.Bases;
 using EventBooking.Application.UseCase.Events.Commands.CreateEvent;
 using EventBooking.Application.UseCase.Events.Commands.DeleteEvent;
 using EventBooking.Application.UseCase.Events.Commands.UpdateEvent;
-using EventBooking.Application.UseCase.Events.Queries.GetAllEvents;
-using EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent;
 using EventBooking.Application.UseCase.Events.Queries.GetByIdEvent;
+using EventBooking.Application.UseCase.Events.Queries.GetEvents;
 using EventBookingAPI.Controllers;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -68,34 +65,23 @@ namespace EventBooking.API.Tests.Controllers
         }
 
         [TestMethod]
-        [DataRow(typeof(OkObjectResult), true)]
-        [DataRow(typeof(BadRequestObjectResult), false)]
-        public async Task GetAllEndpoint(Type actionResult, bool isOk)
+        [DataRow(typeof(OkObjectResult), "country", true)]
+        [DataRow(typeof(OkObjectResult), null, true)]
+        [DataRow(typeof(OkObjectResult), "", true)]
+        [DataRow(typeof(BadRequestObjectResult), "country", false)]
+        [DataRow(typeof(BadRequestObjectResult), null, false)]
+        [DataRow(typeof(BadRequestObjectResult), "", false)]
+        public async Task GetEventsAsyncEndpoint(Type actionResult, string? country, bool isOk)
         {
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetAllEventsQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(GetResponse<IEnumerable<EventBasicDto>>(isOk));
+            _mediatorMock.Setup(x => x.Send(It.IsAny<GetEventsQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(GetResponse<IEnumerable<EventBasicDto>>(isOk));
 
             var controller = new EventsController(_mediatorMock.Object);
 
-            var result = await controller.GetAll(CancellationToken.None);
+            var result = await controller.GetEventsAsync(country, CancellationToken.None);
 
             Assert.IsInstanceOfType(result, actionResult);
-            _mediatorMock.Verify(x => x.Send(It.IsAny<GetAllEventsQuery>(), It.IsAny<CancellationToken>()), Times.Once);
-        }
 
-
-        [TestMethod]
-        [DataRow(typeof(OkObjectResult), true)]
-        [DataRow(typeof(BadRequestObjectResult), false)]
-        public async Task GetAllByCountryEndpoint(Type actionResult, bool isOk)
-        {
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetByEventsCountryQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(GetResponse<IEnumerable<EventBasicDto>>(isOk));
-
-            var controller = new EventsController(_mediatorMock.Object);
-
-            var result = await controller.GetByCountry(new GetByEventsCountryQuery(), CancellationToken.None);
-
-            Assert.IsInstanceOfType(result, actionResult);
-            _mediatorMock.Verify(x => x.Send(It.IsAny<GetByEventsCountryQuery>(), It.IsAny<CancellationToken>()), Times.Once);
+            _mediatorMock.Verify(x => x.Send(It.IsAny<GetEventsQuery>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [TestMethod]
@@ -107,7 +93,7 @@ namespace EventBooking.API.Tests.Controllers
 
             var controller = new EventsController(_mediatorMock.Object);
 
-            var result = await controller.GetByName(new GetByEventNameQuery(), CancellationToken.None);
+            var result = await controller.GetEventAsync("name", CancellationToken.None);
 
             Assert.IsInstanceOfType(result, actionResult);
             _mediatorMock.Verify(x => x.Send(It.IsAny<GetByEventNameQuery>(), It.IsAny<CancellationToken>()), Times.Once);

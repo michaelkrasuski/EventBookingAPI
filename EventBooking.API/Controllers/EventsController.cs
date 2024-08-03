@@ -1,21 +1,20 @@
 ﻿using EventBooking.API.Attributes.EventBookingAPI.API.Attributes;
 using EventBooking.Application.UseCase.Events.Commands.CreateEvent;
 using EventBooking.Application.UseCase.Events.Commands.DeleteEvent;
-using EventBooking.Application.UseCase.Events.Commands.RegisterForEvent;
 using EventBooking.Application.UseCase.Events.Commands.UpdateEvent;
-using EventBooking.Application.UseCase.Events.Queries.GetAllEvents;
-using EventBooking.Application.UseCase.Events.Queries.GetByCountryEvent;
 using EventBooking.Application.UseCase.Events.Queries.GetByIdEvent;
+using EventBooking.Application.UseCase.Events.Queries.GetEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventBookingAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]    
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public class EventsController : ControllerBase
     {
         private readonly IMediator Mediator;
@@ -32,8 +31,9 @@ namespace EventBookingAPI.Controllers
         /// <param name="createEventCommand"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        [HttpPost("Create")]
+        [HttpPost]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateAsync([FromBody] CreateEventCommand createEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(createEventCommand, ct);
@@ -52,8 +52,9 @@ namespace EventBookingAPI.Controllers
         /// <param name="updateEventCommand"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        [HttpPut("Update")]
+        [HttpPut]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> UpdateAsync([FromBody] UpdateEventCommand updateEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(updateEventCommand, ct);
@@ -72,8 +73,9 @@ namespace EventBookingAPI.Controllers
         /// <param name="deleteEventCommand"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        [HttpDelete("Delete")]
+        [HttpDelete]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteAsync([FromQuery] DeleteEventCommand deleteEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(deleteEventCommand, ct);
@@ -87,14 +89,15 @@ namespace EventBookingAPI.Controllers
         }
 
         /// <summary>
-        /// Fetches all Event Booking items
+        /// Fetches Booking events
         /// </summary>
+        /// <param name="country">country name parameter</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(CancellationToken ct)
+        [HttpGet]
+        public async Task<IActionResult> GetEventsAsync(string? country, CancellationToken ct)
         {
-            var result = await Mediator.Send(new GetAllEventsQuery(), ct);
+            var result = await Mediator.Send(new GetEventsQuery { Country = country }, ct);
 
             if (result.Success)
             {
@@ -104,16 +107,10 @@ namespace EventBookingAPI.Controllers
             return BadRequest(result);
         }
 
-        /// <summary>
-        /// Fetches Event Booking items by Country
-        /// </summary>
-        /// <param name="getByEventCountryQuery"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        [HttpGet("GetByCountry")]
-        public async Task<IActionResult> GetByCountry([FromQuery] GetByEventsCountryQuery getByEventCountryQuery, CancellationToken ct)
+        [HttpGet]
+        public async Task<IActionResult> GetEventAsync(string? name, CancellationToken ct)
         {
-            var result = await Mediator.Send(getByEventCountryQuery, ct);
+            var result = await Mediator.Send(new GetByEventNameQuery { Name = name }, ct);
 
             if (result.Success)
             {
@@ -121,45 +118,6 @@ namespace EventBookingAPI.Controllers
             }
 
             return BadRequest(result);
-        }
-
-        /// <summary>
-        /// Fetches Event Booking item by name
-        /// </summary>
-        /// <param name="getByEventNameQuery"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        [HttpGet("GetByName")]
-        public async Task<IActionResult> GetByName([FromQuery] GetByEventNameQuery getByEventNameQuery, CancellationToken ct)
-        {
-            var result = await Mediator.Send(getByEventNameQuery, ct);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        /// <summary>
-        /// Registers for an event by name using email address
-        /// </summary>
-        /// <param name="registerForEventCommand"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        [HttpPost("Register")]
-        [Authorize]
-        public async Task<IActionResult> Register([FromQuery] RegisterForEventCommand registerForEventCommand, CancellationToken ct)
-        {
-            var result = await Mediator.Send(registerForEventCommand, ct);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
+        }       
     }
 }
