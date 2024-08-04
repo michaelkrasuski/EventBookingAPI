@@ -1,11 +1,11 @@
-﻿using EventBooking.Application.UseCase.Events.Queries.GetAllEvents;
+﻿using EventBooking.Application.UseCase.Events.Queries.GetEvents;
 using EventBooking.Domain.Entities;
 using Moq;
 
 namespace EventBooking.Application.Tests.Events.Queries
 {
     [TestClass]
-    public class GetAllEventsQueryTests : TestBase
+    public class GetEventsQueryTests : TestBase
     {
         private readonly List<EventEntity> Events = [new (), new ()];
 
@@ -18,10 +18,13 @@ namespace EventBooking.Application.Tests.Events.Queries
         }
 
         [TestMethod]
-        public async Task HandlesWithoutError()
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow("country")]
+        public async Task HandlesWithoutError(string country)
         {
-            var query = new GetAllEventsQuery();
-            var handler = new GetAllEventsQueryHandler(UnitOfWorkMock.Object, MapperMock.Object);
+            var query = new GetEventsQuery { Country = country };
+            var handler = new GetEventsQueryHandler(UnitOfWorkMock.Object, MapperMock.Object);
 
             var result = await handler.Handle(query, CancellationToken.None);
 

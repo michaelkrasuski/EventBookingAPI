@@ -4,26 +4,28 @@ using EventBooking.Application.Interface.Persistence;
 using EventBooking.Application.UseCase.Bases;
 using MediatR;
 
-namespace EventBooking.Application.UseCase.Events.Queries.GetAllEvents
+namespace EventBooking.Application.UseCase.Events.Queries.GetEvents
 {
-    public class GetAllEventsQueryHandler : IRequestHandler<GetAllEventsQuery, BaseResponse<IEnumerable<EventBasicDto>>>
+    public class GetEventsQueryHandler : IRequestHandler<GetEventsQuery, BaseResponse<IEnumerable<EventBasicDto>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllEventsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetEventsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<BaseResponse<IEnumerable<EventBasicDto>>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<IEnumerable<EventBasicDto>>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
         {
             var response = new BaseResponse<IEnumerable<EventBasicDto>>();
 
             try
             {
-                var events = await _unitOfWork.Events.GetAllAsync(cancellationToken);
+                var events = request.Country is null
+                    ? await _unitOfWork.Events.GetAllAsync(cancellationToken)
+                    : await _unitOfWork.Events.GetByCountry(request.Country, cancellationToken);
 
                 if (events is not null)
                 {
