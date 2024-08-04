@@ -33,7 +33,6 @@ namespace EventBookingAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateAsync([FromBody] CreateEventCommand createEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(createEventCommand, ct);
@@ -54,7 +53,6 @@ namespace EventBookingAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> UpdateAsync([FromBody] UpdateEventCommand updateEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(updateEventCommand, ct);
@@ -75,7 +73,6 @@ namespace EventBookingAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteAsync([FromQuery] DeleteEventCommand deleteEventCommand, CancellationToken ct)
         {
             var result = await Mediator.Send(deleteEventCommand, ct);
