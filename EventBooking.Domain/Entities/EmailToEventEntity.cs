@@ -2,11 +2,11 @@
 
 namespace EventBooking.Domain.Entities
 {
-    [PrimaryKey(nameof(Email), nameof(EventName))]
+    [PrimaryKey(nameof(Email), nameof(EventId))]
     public class EmailToEventEntity
     {
         public string? Email { get; set; }
-        public string? EventName { get; set; }
+        public long? EventId { get; set; }
 
         public EventEntity? EventEntity { get; set; }
     }
