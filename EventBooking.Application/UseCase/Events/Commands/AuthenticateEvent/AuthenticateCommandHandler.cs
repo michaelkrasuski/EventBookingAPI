@@ -1,6 +1,4 @@
-﻿using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
-using EventBooking.Application.Dto;
+﻿using EventBooking.Application.Dto;
 using EventBooking.Application.Extensions;
 using EventBooking.Application.Interface.Persistence;
 using EventBooking.Application.UseCase.Bases;
