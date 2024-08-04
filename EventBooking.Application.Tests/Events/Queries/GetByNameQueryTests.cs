@@ -10,7 +10,7 @@ namespace EventBooking.Application.Tests.Events.Queries
         [TestInitialize]
         public void Init()
         {
-            EventRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventEntity());
+            EventRepositoryMock.Setup(x => x.GetByName(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventEntity());
 
             InitBase(EventRepositoryMock);
         }

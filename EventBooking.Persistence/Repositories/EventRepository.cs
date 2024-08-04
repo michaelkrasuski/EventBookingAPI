@@ -13,11 +13,11 @@ namespace EventBooking.Persistence.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<bool> DeleteAsync(string name, CancellationToken ct)
+        public async Task<bool> DeleteAsync(long key, CancellationToken ct)
         {
             var eventEntity = await _dbContext.Events
                 .Include(x => x.EmailToEvents)
-                .SingleOrDefaultAsync(x => x.Name == name, ct);
+                .SingleOrDefaultAsync(x => x.Id == key, ct);
             
             if (eventEntity == null)
             {
@@ -39,14 +39,19 @@ namespace EventBooking.Persistence.Repositories
             return await _dbContext.Events.AsNoTracking().ToListAsync(ct);
         }
 
-        public async Task<EventEntity?> GetAsync(string name, CancellationToken ct)
+        public async Task<EventEntity?> GetAsync(long key, CancellationToken ct)
         {
-            return await _dbContext.Events.FindAsync(name, ct);
+            return await _dbContext.Events.FindAsync(key, ct);
         }
 
         public async Task<IEnumerable<EventEntity>> GetByCountry(string country, CancellationToken ct)
         {
             return await _dbContext.Events.Where(x => x.Country!.Equals(country.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToListAsync(ct);
+        }
+
+        public async Task<EventEntity?> GetByName(string name, CancellationToken ct)
+        {
+            return await _dbContext.Events.SingleOrDefaultAsync(x => x.Name!.Equals(name.Trim(), StringComparison.CurrentCultureIgnoreCase), ct);
         }
 
         public async Task<bool> InsertAsync(EventEntity entity, CancellationToken ct)
@@ -58,9 +63,7 @@ namespace EventBooking.Persistence.Repositories
 
         public async Task<bool> RegisterEmail(EmailToEventEntity entity, CancellationToken ct)
         {
-            //await _dbContext.EmailToEvents.AddAsync(entity, ct);
-
-            var eventEntity = await GetAsync(entity.EventName!, ct);
+            var eventEntity = await GetAsync(entity.EventId.GetValueOrDefault(), ct);
 
             if (eventEntity is null)
             {

@@ -13,7 +13,7 @@ namespace EventBooking.Persistence.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<bool> DeleteAsync(string key, CancellationToken ct)
+        public async Task<bool> DeleteAsync(Guid key, CancellationToken ct)
         {
             var userEntity = await _dbContext.Users.FindAsync(key, ct);
 
@@ -34,7 +34,7 @@ namespace EventBooking.Persistence.Repositories
             return await _dbContext.Users.AsNoTracking().ToListAsync(ct);
         }
 
-        public async Task<UserEntity?> GetAsync(string key, CancellationToken ct)
+        public async Task<UserEntity?> GetAsync(Guid key, CancellationToken ct)
         {
             return await _dbContext.Users.FindAsync(key, ct);
         }

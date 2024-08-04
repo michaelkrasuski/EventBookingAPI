@@ -2,7 +2,7 @@
 
 namespace EventBooking.Application.Interface.Persistence
 {
-    public interface IUserRepository : IGenericRepository<UserEntity>
+    public interface IUserRepository : IGenericRepository<UserEntity, Guid>
     {
     }
 }

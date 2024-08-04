@@ -2,7 +2,6 @@
 
 namespace EventBooking.Domain.Entities
 {
-    [PrimaryKey(nameof(Email), nameof(EventId))]
     public class EmailToEventEntity
     {
         public string? Email { get; set; }

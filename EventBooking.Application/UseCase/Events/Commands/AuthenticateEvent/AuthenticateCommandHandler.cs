@@ -31,7 +31,7 @@ namespace EventBooking.Application.UseCase.Events.Commands.AuthenticateEvent
 
             try
             {
-                var userEntity = new UserEntity { Id = Guid.NewGuid().ToString(), IsActive = true };
+                var userEntity = new UserEntity { Id = Guid.NewGuid(), IsActive = true };
 
                 var data = await _unitOfWork.Users.InsertAsync(userEntity, cancellationToken);
 

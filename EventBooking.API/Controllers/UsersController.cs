@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventBooking.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]

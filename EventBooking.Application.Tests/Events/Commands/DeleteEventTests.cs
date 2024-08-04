@@ -1,4 +1,5 @@
 ﻿using EventBooking.Application.UseCase.Events.Commands.DeleteEvent;
+using EventBooking.Domain.Entities;
 using Moq;
 
 namespace EventBooking.Application.Tests.Events.Commands
@@ -9,7 +10,8 @@ namespace EventBooking.Application.Tests.Events.Commands
         [TestInitialize]
         public void Init()
         {
-            EventRepositoryMock.Setup(x => x.DeleteAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            EventRepositoryMock.Setup(x => x.GetByName(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventEntity());
+            EventRepositoryMock.Setup(x => x.DeleteAsync(It.IsAny<long>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             InitBase(EventRepositoryMock);
         }

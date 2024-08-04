@@ -22,7 +22,9 @@ namespace EventBooking.Application.UseCase.Events.Commands.DeleteEvent
 
             try
             {
-                response.Data = await _unitOfWork.Events.DeleteAsync(request.Name!, cancellationToken);
+                var eventEntity = await _unitOfWork.Events.GetByName(request.Name!, cancellationToken);
+
+                response.Data = eventEntity is not null && await _unitOfWork.Events.DeleteAsync(eventEntity.Id, cancellationToken);
 
                 if (response.Data)
                 {

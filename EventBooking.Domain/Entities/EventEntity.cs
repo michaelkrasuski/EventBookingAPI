@@ -1,15 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace EventBooking.Domain.Entities
 {
-    [Index(nameof(Name))]
-    [Index(nameof(Country))]
     public class EventEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         public string? Name { get; set; }

@@ -49,8 +49,11 @@ namespace EventBooking.API.Middleware
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
 
-                //Attach user to context on successful JWT validation
-                context.Items["User"] = await userRepository.GetAsync(userId, CancellationToken.None);
+                if (Guid.TryParse(userId, out var userIdGuid))
+                {
+                    //Attach user to context on successful JWT validation
+                    context.Items["User"] = await userRepository.GetAsync(userIdGuid, CancellationToken.None);
+                }
             }
             catch
             {

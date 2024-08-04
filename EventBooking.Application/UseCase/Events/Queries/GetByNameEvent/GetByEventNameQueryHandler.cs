@@ -23,7 +23,7 @@ namespace EventBooking.Application.UseCase.Events.Queries.GetByIdEvent
 
             try
             {
-                var eventEntity = await _unitOfWork.Events.GetAsync(request.Name!, cancellationToken);
+                var eventEntity = await _unitOfWork.Events.GetByName(request.Name!, cancellationToken);
 
                 if (eventEntity is not null)
                 {
